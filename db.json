@@ -1,0 +1,492 @@
+{
+  "products": [
+    {
+      "id": "P-001",
+      "name": "ថ្នាំកម្ចាត់ដង្កូវ Alpha-Cypermethrin",
+      "category": "ថ្នាំសត្វល្អិត",
+      "unit": "ដប 1L",
+      "stock": 94,
+      "minStock": 10,
+      "costPrice": 3.5,
+      "sellPrice": 5.5,
+      "expiry": "2026-12-30"
+    },
+    {
+      "id": "P-002",
+      "name": "ថ្នាំកម្ចាត់ផ្សិត Mancozeb 80WP",
+      "category": "ថ្នាំផ្សិត",
+      "unit": "កញ្ចប់ 1kg",
+      "stock": 99,
+      "minStock": 15,
+      "costPrice": 2,
+      "sellPrice": 3.5,
+      "expiry": "2026-08-15"
+    },
+    {
+      "id": "P-003",
+      "name": "ថ្នាំបាញ់ស្មៅ Glyphosate 480SL",
+      "category": "ថ្នាំស្មៅ",
+      "unit": "ដប 1L",
+      "stock": 50,
+      "minStock": 5,
+      "costPrice": 4,
+      "sellPrice": 6.5,
+      "expiry": "2026-06-10"
+    },
+    {
+      "id": "P-004",
+      "name": "ថ្នាំកម្ចាត់ដង្កូវ Abamectin 1.8EC",
+      "category": "ថ្នាំសត្វល្អិត",
+      "unit": "ដប 500ml",
+      "stock": 100,
+      "minStock": 10,
+      "costPrice": 4.5,
+      "sellPrice": 7,
+      "expiry": "2027-03-20"
+    },
+    {
+      "id": "P-005",
+      "name": "ជី NPK 16-16-16",
+      "category": "ជីគីមី",
+      "unit": "បាវ 50kg",
+      "stock": 60,
+      "minStock": 20,
+      "costPrice": 28,
+      "sellPrice": 35,
+      "expiry": "2028-01-15"
+    },
+    {
+      "id": "P-006",
+      "name": "ជី Urea 46%",
+      "category": "ជីគីមី",
+      "unit": "បាវ 50kg",
+      "stock": 40,
+      "minStock": 25,
+      "costPrice": 22,
+      "sellPrice": 28,
+      "expiry": "2028-06-30"
+    },
+    {
+      "id": "P-007",
+      "name": "ថ្នាំបាញ់ស្មៅ Paraquat 276SL",
+      "category": "ថ្នាំស្មៅ",
+      "unit": "ដប 1L",
+      "stock": 50,
+      "minStock": 10,
+      "costPrice": 5,
+      "sellPrice": 7.5,
+      "expiry": "2026-09-20"
+    },
+    {
+      "id": "P-008",
+      "name": "ថ្នាំកម្ចាត់ផ្សិត Carbendazim 50WP",
+      "category": "ថ្នាំផ្សិត",
+      "unit": "កញ្ចប់ 500g",
+      "stock": 100,
+      "minStock": 10,
+      "costPrice": 2.5,
+      "sellPrice": 4,
+      "expiry": "2027-05-10"
+    },
+    {
+      "id": "P-009",
+      "name": "ជី DAP 18-46-0",
+      "category": "ជីគីមី",
+      "unit": "បាវ 50kg",
+      "stock": 150,
+      "minStock": 15,
+      "costPrice": 32,
+      "sellPrice": 40,
+      "expiry": "2028-03-25"
+    },
+    {
+      "id": "P-010",
+      "name": "គ្រាប់ពូជស្រូវ IR504",
+      "category": "គ្រាប់ពូជ",
+      "unit": "បាវ 25kg",
+      "stock": 200,
+      "minStock": 10,
+      "costPrice": 18,
+      "sellPrice": 25,
+      "expiry": "2027-12-31"
+    },
+    {
+      "id": "P-011",
+      "name": "ថ្នាំកម្ចាត់សត្វកណ្តុរ Zinc Phosphide",
+      "category": "ថ្នាំសត្វល្អិត",
+      "unit": "កញ្ចប់ 100g",
+      "stock": 30,
+      "minStock": 5,
+      "costPrice": 1.5,
+      "sellPrice": 3,
+      "expiry": "2027-08-15"
+    },
+    {
+      "id": "P-012",
+      "name": "ឧបករណ៍បាញ់ថ្នាំ Knapsack 16L",
+      "category": "ឧបករណ៍",
+      "unit": "គ្រឿង",
+      "stock": 40,
+      "minStock": 3,
+      "costPrice": 22,
+      "sellPrice": 32,
+      "expiry": ""
+    }
+  ],
+  "customers": [
+    {
+      "id": "C-001",
+      "name": "លោក សុខ វិចិត្រ",
+      "phone": "012-345-678",
+      "village": "ភូមិត្នោត ឃុំព្រែកតាមាក់",
+      "cropType": "ស្រូវ + បន្លែ",
+      "totalBuy": 115.5,
+      "debt": 0.5
+    },
+    {
+      "id": "C-002",
+      "name": "មីង ចាន់ធី",
+      "phone": "092-111-222",
+      "village": "ភូមិដូង ឃុំសំរោង",
+      "cropType": "ស្រូវ + ដំឡូង",
+      "totalBuy": 0,
+      "debt": 280
+    },
+    {
+      "id": "C-003",
+      "name": "ពូ ម៉ៅ",
+      "phone": "088-777-555",
+      "village": "ភូមិក្រាំង ឃុំចំការមន",
+      "cropType": "ស្រូវ",
+      "totalBuy": 100,
+      "debt": 357.5
+    },
+    {
+      "id": "C-004",
+      "name": "លោកស្រី សាន ស្រីពៅ",
+      "phone": "015-222-333",
+      "village": "ភូមិតាប៉ែន ឃុំស្វាយរៀង",
+      "cropType": "បន្លែ",
+      "totalBuy": 0,
+      "debt": 0
+    },
+    {
+      "id": "C-005",
+      "name": "លោក ហេង សុភាព",
+      "phone": "070-444-666",
+      "village": "ភូមិព្រែកលៀប",
+      "cropType": "ស្រូវ + ម្រេច",
+      "totalBuy": 0,
+      "debt": 0
+    },
+    {
+      "id": "C-006",
+      "name": "ពូ ប៊ុនធឿន",
+      "phone": "097-555-444",
+      "village": "ភូមិអូរ ឃុំបាក់ស្នា",
+      "cropType": "ស្រូវ",
+      "totalBuy": 0,
+      "debt": 0
+    },
+    {
+      "id": "C-007",
+      "name": "លោក គឹម សុជាតិ",
+      "phone": "086-333-111",
+      "village": "ភូមិចំការដូង",
+      "cropType": "ស្រូវ + ដំឡូងមី",
+      "totalBuy": 0,
+      "debt": 0
+    },
+    {
+      "id": "C-008",
+      "name": "លោកស្រី យឹម ស្រីលក្ខណ៍",
+      "phone": "016-888-999",
+      "village": "ភូមិដើមពោធិ៍",
+      "cropType": "បន្លែ + ផ្លែឈើ",
+      "totalBuy": 0,
+      "debt": 0
+    },
+    {
+      "id": "C-009",
+      "totalBuy": 0,
+      "debt": 0,
+      "name": "chetra",
+      "phone": "098470708",
+      "village": "ចក",
+      "cropType": "ស្រូវ"
+    }
+  ],
+  "suppliers": [
+    {
+      "id": "S-001",
+      "name": "ក្រុមហ៊ុន កសិកម្មបៃតង",
+      "contact": "លោក ស៊ុំ ម៉េង",
+      "phone": "023-456-789",
+      "address": "ផ្លូវ ៥៩៨ ភ្នំពេញ",
+      "productType": "ថ្នាំសត្វល្អិត",
+      "totalBuy": 1120,
+      "debt": 0
+    },
+    {
+      "id": "S-002",
+      "name": "ដេប៉ូធំ ភ្នំពេញ",
+      "contact": "មីង ស្រីណាង",
+      "phone": "012-789-456",
+      "address": "ផ្សារដឹមកុ ភ្នំពេញ",
+      "productType": "ថ្នាំផ្សិត/ស្មៅ",
+      "totalBuy": 695,
+      "debt": 0
+    },
+    {
+      "id": "S-003",
+      "name": "សហករណ៍ជីកម្ពុជា",
+      "contact": "លោក ហ៊ឹម សុផល",
+      "phone": "092-333-666",
+      "address": "កណ្តាល",
+      "productType": "ជីគីមី",
+      "totalBuy": 7360,
+      "debt": 6860
+    },
+    {
+      "id": "S-004",
+      "name": "ស្ថាប័នគ្រាប់ពូជជាតិ",
+      "contact": "លោកស្រី សុខ លី",
+      "phone": "088-111-999",
+      "address": "ផ្លូវជាតិ ៥",
+      "productType": "គ្រាប់ពូជ",
+      "totalBuy": 3600,
+      "debt": 0
+    },
+    {
+      "id": "S-005",
+      "name": "ហាងឧបករណ៍កសិកម្ម",
+      "contact": "ពូ ឆេង",
+      "phone": "097-222-888",
+      "address": "ស្ទឹងមានជ័យ ភ្នំពេញ",
+      "productType": "ឧបករណ៍",
+      "totalBuy": 880,
+      "debt": 0
+    }
+  ],
+  "sales": [
+    {
+      "id": "INV-26001",
+      "date": "2026-05-01",
+      "customerId": "C-001",
+      "customerName": "លោក សុខ វិចិត្រ",
+      "items": [
+        {
+          "productId": "P-001",
+          "name": "ថ្នាំកម្ចាត់ដង្កូវ Alpha-Cypermethrin",
+          "qty": 20,
+          "unitPrice": 5.5,
+          "costPrice": 3.5
+        }
+      ],
+      "subtotal": 110,
+      "discount": 0,
+      "total": 110,
+      "paid": 110,
+      "balance": 0,
+      "paymentStatus": "សាច់ប្រាក់"
+    },
+    {
+      "id": "INV-26002",
+      "date": "2026-05-07",
+      "customerId": "C-002",
+      "customerName": "មីង ចាន់ធី",
+      "items": [
+        {
+          "productId": "P-005",
+          "name": "ជី NPK 16-16-16",
+          "qty": 5,
+          "unitPrice": 35,
+          "costPrice": 28
+        },
+        {
+          "productId": "P-005",
+          "name": "ជី NPK 16-16-16",
+          "qty": 3,
+          "unitPrice": 35,
+          "costPrice": 28
+        }
+      ],
+      "subtotal": 280,
+      "discount": 0,
+      "total": 280,
+      "paid": 0,
+      "balance": 280,
+      "paymentStatus": "ជឿ"
+    },
+    {
+      "id": "INV-26003",
+      "date": "2026-05-10",
+      "customerId": "C-003",
+      "customerName": "ពូ ម៉ៅ",
+      "items": [
+        {
+          "productId": "P-006",
+          "name": "ជី Urea 46%",
+          "qty": 10,
+          "unitPrice": 28,
+          "costPrice": 22
+        },
+        {
+          "productId": "P-001",
+          "name": "ថ្នាំកម្ចាត់ដង្កូវ Alpha-Cypermethrin",
+          "qty": 5,
+          "unitPrice": 5.5,
+          "costPrice": 3.5
+        }
+      ],
+      "subtotal": 307.5,
+      "discount": 0,
+      "total": 307.5,
+      "paid": 0,
+      "balance": 307.5,
+      "paymentStatus": "ជឿ"
+    },
+    {
+      "id": "INV-26005",
+      "date": "2026-06-17",
+      "customerId": "C-001",
+      "items": [
+        {
+          "productId": "P-001",
+          "name": "ថ្នាំកម្ចាត់ដង្កូវ Alpha-Cypermethrin",
+          "qty": 1,
+          "unitPrice": 5.5,
+          "costPrice": 3.5
+        }
+      ],
+      "discount": 0,
+      "paid": 5,
+      "paymentStatus": "ជឿ",
+      "customerName": "លោក សុខ វិចិត្រ",
+      "subtotal": 5.5,
+      "total": 5.5,
+      "balance": 0.5
+    },
+    {
+      "id": "INV-26006",
+      "date": "2026-06-17",
+      "customerId": "C-003",
+      "items": [
+        {
+          "productId": "P-002",
+          "name": "ថ្នាំកម្ចាត់ផ្សិត Mancozeb 80WP",
+          "qty": 1,
+          "unitPrice": 100,
+          "costPrice": 2
+        }
+      ],
+      "discount": 0,
+      "paid": 50,
+      "paymentStatus": "ជឿ",
+      "customerName": "ពូ ម៉ៅ",
+      "subtotal": 100,
+      "total": 100,
+      "balance": 50
+    }
+  ],
+  "purchases": [
+    {
+      "id": "PO-26001",
+      "date": "2026-04-05",
+      "supplierId": "S-001",
+      "supplierName": "ក្រុមហ៊ុន កសិកម្មបៃតង",
+      "items": [
+        {
+          "productId": "P-001",
+          "name": "ថ្នាំកម្ចាត់ដង្កូវ Alpha-Cypermethrin",
+          "qty": 50,
+          "unitPrice": 3.5
+        }
+      ],
+      "total": 175,
+      "paymentStatus": "បានបង់ប្រាក់"
+    },
+    {
+      "id": "PO-26002",
+      "date": "2026-04-08",
+      "supplierId": "S-002",
+      "supplierName": "ដេប៉ូធំ ភ្នំពេញ",
+      "items": [
+        {
+          "productId": "P-002",
+          "name": "ថ្នាំកម្ចាត់ផ្សិត Mancozeb 80WP",
+          "qty": 100,
+          "unitPrice": 2
+        }
+      ],
+      "total": 200,
+      "paymentStatus": "បានបង់ប្រាក់"
+    },
+    {
+      "id": "PO-26003",
+      "date": "2026-04-12",
+      "supplierId": "S-003",
+      "supplierName": "សហករណ៍ជីកម្ពុជា",
+      "items": [
+        {
+          "productId": "P-005",
+          "name": "ជី NPK 16-16-16",
+          "qty": 40,
+          "unitPrice": 28
+        }
+      ],
+      "total": 1120,
+      "paymentStatus": "ជំពាក់គេ"
+    },
+    {
+      "id": "PO-26004",
+      "date": "2026-04-15",
+      "supplierId": "S-003",
+      "supplierName": "សហករណ៍ជីកម្ពុជា",
+      "items": [
+        {
+          "productId": "P-006",
+          "name": "ជី Urea 46%",
+          "qty": 30,
+          "unitPrice": 22
+        }
+      ],
+      "total": 660,
+      "paymentStatus": "ជំពាក់គេ"
+    },
+    {
+      "id": "PO-26005",
+      "date": "2026-04-25",
+      "supplierId": "S-003",
+      "supplierName": "សហករណ៍ជីកម្ពុជា",
+      "items": [
+        {
+          "productId": "P-009",
+          "name": "ជី DAP 18-46-0",
+          "qty": 150,
+          "unitPrice": 32
+        }
+      ],
+      "total": 4800,
+      "paymentStatus": "ជំពាក់គេ"
+    },
+    {
+      "id": "PO-26006",
+      "date": "2026-05-02",
+      "supplierId": "S-004",
+      "supplierName": "ស្ថាប័នគ្រាប់ពូជជាតិ",
+      "items": [
+        {
+          "productId": "P-010",
+          "name": "គ្រាប់ពូជស្រូវ IR504",
+          "qty": 200,
+          "unitPrice": 18
+        }
+      ],
+      "total": 3600,
+      "paymentStatus": "បានបង់ប្រាក់"
+    }
+  ],
+  "invoiceCounter": 26006,
+  "poCounter": 26007
+}

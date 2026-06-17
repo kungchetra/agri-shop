@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ហាងថ្នាំកសិកម្ម</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanuman:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green-dark: #1a4731;
+  --green-mid: #2d6a4f;
+  --green-light: #52b788;
+  --green-pale: #d8f3dc;
+  --earth: #6b4226;
+  --earth-light: #c8956c;
+  --gold: #f4a261;
+  --cream: #fefae0;
+  --white: #ffffff;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-400: #94a3b8;
+  --gray-600: #475569;
+  --gray-800: #1e293b;
+  --red: #e63946;
+  --red-light: #fde8ea;
+  --yellow: #f59e0b;
+  --yellow-light: #fef3c7;
+  --blue: #3b82f6;
+  --blue-light: #eff6ff;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Hanuman', 'Inter', sans-serif; background: var(--gray-50); color: var(--gray-800); }
+.app { display:flex; min-height:100vh; }
+
+/* Sidebar */
+.sidebar { width:240px; background: var(--green-dark); color:white; display:flex; flex-direction:column; position:fixed; height:100vh; z-index:100; }
+.sidebar-header { padding:20px 16px; border-bottom:1px solid rgba(255,255,255,0.1); }
+.sidebar-logo { font-size:18px; font-weight:700; color:white; line-height:1.3; }
+.sidebar-logo span { display:block; font-size:11px; color:var(--green-light); font-weight:400; margin-top:2px; }
+.sidebar-nav { flex:1; padding:12px 0; overflow-y:auto; }
+.nav-item { display:flex; align-items:center; gap:10px; padding:11px 16px; cursor:pointer; transition:all .2s; color:rgba(255,255,255,0.75); font-size:14px; border-left:3px solid transparent; }
+.nav-item:hover { background:rgba(255,255,255,0.08); color:white; }
+.nav-item.active { background:rgba(82,183,136,0.2); color:var(--green-light); border-left-color:var(--green-light); }
+.nav-icon { width:20px; text-align:center; font-size:16px; }
+.sidebar-footer { padding:12px 16px; border-top:1px solid rgba(255,255,255,0.1); font-size:12px; color:rgba(255,255,255,0.4); }
+
+/* Main */
+.main { margin-left:240px; flex:1; }
+.topbar { background:white; padding:14px 24px; border-bottom:1px solid var(--gray-200); display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:50; }
+.page-title { font-size:18px; font-weight:700; color:var(--green-dark); }
+.topbar-right { display:flex; align-items:center; gap:12px; }
+.badge-alert { background:var(--red); color:white; padding:3px 8px; border-radius:20px; font-size:12px; font-weight:600; }
+.content { padding:24px; }
+
+/* Cards */
+.stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-bottom:24px; }
+.stat-card { background:white; border-radius:12px; padding:18px; border:1px solid var(--gray-200); }
+.stat-card .label { font-size:12px; color:var(--gray-600); margin-bottom:6px; }
+.stat-card .value { font-size:24px; font-weight:700; color:var(--green-dark); }
+.stat-card .sub { font-size:12px; color:var(--gray-400); margin-top:4px; }
+.stat-card.red .value { color:var(--red); }
+.stat-card.gold .value { color:var(--earth); }
+
+/* Tables */
+.card { background:white; border-radius:12px; border:1px solid var(--gray-200); overflow:hidden; margin-bottom:20px; }
+.card-header { padding:16px 20px; border-bottom:1px solid var(--gray-200); display:flex; align-items:center; justify-content:space-between; }
+.card-title { font-size:15px; font-weight:600; color:var(--green-dark); }
+.table-wrap { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; }
+th { background:var(--gray-50); padding:10px 14px; text-align:left; font-size:12px; font-weight:600; color:var(--gray-600); border-bottom:1px solid var(--gray-200); white-space:nowrap; }
+td { padding:11px 14px; font-size:13px; border-bottom:1px solid var(--gray-100); vertical-align:middle; }
+tr:last-child td { border-bottom:none; }
+tr:hover td { background:var(--gray-50); }
+
+/* Buttons */
+.btn { padding:8px 14px; border-radius:8px; border:none; cursor:pointer; font-size:13px; font-weight:600; font-family:inherit; transition:all .2s; display:inline-flex; align-items:center; gap:6px; }
+.btn-primary { background:var(--green-mid); color:white; }
+.btn-primary:hover { background:var(--green-dark); }
+.btn-danger { background:var(--red-light); color:var(--red); }
+.btn-danger:hover { background:var(--red); color:white; }
+.btn-ghost { background:var(--gray-100); color:var(--gray-600); }
+.btn-ghost:hover { background:var(--gray-200); }
+.btn-gold { background:var(--gold); color:white; }
+.btn-sm { padding:5px 10px; font-size:12px; }
+
+/* Tags */
+.tag { padding:3px 8px; border-radius:20px; font-size:11px; font-weight:600; }
+.tag-green { background:var(--green-pale); color:var(--green-dark); }
+.tag-red { background:var(--red-light); color:var(--red); }
+.tag-yellow { background:var(--yellow-light); color:#92400e; }
+.tag-blue { background:var(--blue-light); color:var(--blue); }
+.tag-gray { background:var(--gray-100); color:var(--gray-600); }
+
+/* Modal */
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; }
+.modal { background:white; border-radius:16px; padding:24px; width:100%; max-width:560px; max-height:90vh; overflow-y:auto; }
+.modal-title { font-size:17px; font-weight:700; color:var(--green-dark); margin-bottom:20px; }
+
+/* Form */
+.form-group { margin-bottom:14px; }
+label { display:block; font-size:13px; font-weight:600; color:var(--gray-600); margin-bottom:5px; }
+input, select, textarea { width:100%; padding:9px 12px; border:1px solid var(--gray-200); border-radius:8px; font-size:13px; font-family:inherit; outline:none; transition:border .2s; background:white; color:var(--gray-800); }
+input:focus, select:focus, textarea:focus { border-color:var(--green-light); box-shadow:0 0 0 3px rgba(82,183,136,0.15); }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.modal-footer { display:flex; gap:8px; justify-content:flex-end; margin-top:20px; padding-top:16px; border-top:1px solid var(--gray-200); }
+
+/* Alert */
+.alert { padding:12px 16px; border-radius:8px; margin-bottom:16px; font-size:13px; }
+.alert-yellow { background:var(--yellow-light); color:#92400e; border:1px solid #fcd34d; }
+.alert-red { background:var(--red-light); color:var(--red); border:1px solid #fca5a5; }
+
+/* Search bar */
+.search-bar { display:flex; gap:10px; margin-bottom:16px; align-items:center; flex-wrap:wrap; }
+.search-input { padding:8px 12px; border:1px solid var(--gray-200); border-radius:8px; font-size:13px; font-family:inherit; outline:none; width:240px; }
+.search-input:focus { border-color:var(--green-light); }
+
+/* Invoice items */
+.item-row { display:grid; grid-template-columns:1fr 80px 80px 80px 36px; gap:8px; align-items:center; margin-bottom:8px; }
+.item-row input, .item-row select { padding:7px 10px; }
+
+/* Loading */
+.loading { text-align:center; padding:40px; color:var(--gray-400); font-size:14px; }
+
+/* Responsive */
+@media(max-width:768px){
+  .sidebar{width:60px;}
+  .sidebar-logo,.nav-item span{display:none;}
+  .main{margin-left:60px;}
+  .stat-grid{grid-template-columns:1fr 1fr;}
+  .form-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useCallback } = React;
+const API = 'http://localhost:3001/api';
+
+// ── API helpers ──
+const api = {
+  get: (path) => fetch(`${API}${path}`).then(r => r.json()),
+  post: (path, data) => fetch(`${API}${path}`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) }).then(r => r.json()),
+  put: (path, data) => fetch(`${API}${path}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) }).then(r => r.json()),
+  del: (path) => fetch(`${API}${path}`, { method:'DELETE' }).then(r => r.json()),
+};
+
+// ── Formatters ──
+const fmt$ = v => `$${(+v||0).toFixed(2)}`;
+const fmtDate = d => d ? new Date(d).toLocaleDateString('km-KH') : '-';
+const stockStatus = (stock, min) => {
+  if (stock <= 0) return <span className="tag tag-red">អស់ស្តុក</span>;
+  if (stock <= min) return <span className="tag tag-yellow">⚠ ជិតអស់</span>;
+  return <span className="tag tag-green">🟢 គ្រប់</span>;
+};
+const payStatus = s => {
+  if (s === 'សាច់ប្រាក់' || s === 'បានបង់ប្រាក់') return <span className="tag tag-green">{s}</span>;
+  if (s === 'ជឿ' || s === 'ជំពាក់គេ' || s === 'នៅជំពាក់') return <span className="tag tag-red">{s}</span>;
+  return <span className="tag tag-yellow">{s}</span>;
+};
+
+// ── Dashboard ──
+function Dashboard() {
+  const [data, setData] = useState(null);
+  useEffect(() => { api.get('/dashboard').then(setData); }, []);
+  if (!data) return <div className="loading">⏳ កំពុងផ្ទុក...</div>;
+  return (
+    <div>
+      <div className="stat-grid">
+        <div className="stat-card"><div className="label">💰 ការលក់សរុប</div><div className="value">{fmt$(data.totalSales)}</div><div className="sub">រហូតដល់ថ្ងៃនេះ</div></div>
+        <div className="stat-card"><div className="label">📈 ប្រាក់ចំណេញ</div><div className="value">{fmt$(data.totalProfit)}</div><div className="sub">Gross Profit</div></div>
+        <div className="stat-card red"><div className="label">👥 បំណុលអតិថិជន</div><div className="value">{fmt$(data.totalReceivable)}</div><div className="sub">ត្រូវទារ</div></div>
+        <div className="stat-card red"><div className="label">🏭 បំណុលអ្នកផ្គត់ផ្គង់</div><div className="value">{fmt$(data.totalPayable)}</div><div className="sub">ត្រូវបង់</div></div>
+        <div className="stat-card gold"><div className="label">📦 តម្លៃស្តុករួម</div><div className="value">{fmt$(data.totalStockValue)}</div><div className="sub">ផលិតផល {data.totalProducts} ប្រភេទ</div></div>
+        <div className="stat-card"><div className="label">👨‍🌾 អតិថិជន</div><div className="value">{data.totalCustomers}</div><div className="sub">នាក់</div></div>
+      </div>
+      {data.lowStock.length > 0 && (
+        <div className="alert alert-yellow">⚠️ <strong>ផលិតផលជិតអស់ស្តុក:</strong> {data.lowStock.map(p => p.name).join(', ')}</div>
+      )}
+      {data.expiringSoon.length > 0 && (
+        <div className="alert alert-red">🔴 <strong>ផលិតផលជិតហួសកំណត់ (30 ថ្ងៃ):</strong> {data.expiringSoon.map(p => p.name).join(', ')}</div>
+      )}
+      <div className="card">
+        <div className="card-header"><span className="card-title">📊 ស្ថានភាពហិរញ្ញវត្ថុ</span></div>
+        <div style={{padding:'20px',display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',gap:'16px'}}>
+          {[
+            { label:'ស្តុក', amount:data.totalStockValue, color:'var(--green-mid)' },
+            { label:'ប្រាក់ត្រូវទារ', amount:data.totalReceivable, color:'var(--blue)' },
+            { label:'ប្រាក់ត្រូវបង់', amount:data.totalPayable, color:'var(--red)' },
+          ].map(item => (
+            <div key={item.label} style={{textAlign:'center',padding:'16px',background:'var(--gray-50)',borderRadius:'10px'}}>
+              <div style={{fontSize:'20px',fontWeight:'700',color:item.color}}>{fmt$(item.amount)}</div>
+              <div style={{fontSize:'12px',color:'var(--gray-600)',marginTop:'4px'}}>{item.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Inventory ──
+function Inventory() {
+  const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState('');
+  const [modal, setModal] = useState(null);
+  const [form, setForm] = useState({});
+
+  const load = () => api.get('/products').then(setProducts);
+  useEffect(() => { load(); }, []);
+
+  const filtered = products.filter(p => p.name.toLowerCase().includes(search.toLowerCase()) || p.category?.includes(search) || p.id?.includes(search));
+
+  const openAdd = () => { setForm({ stock:0, minStock:10, costPrice:0, sellPrice:0 }); setModal('add'); };
+  const openEdit = p => { setForm({...p}); setModal('edit'); };
+  const save = async () => {
+    if (modal === 'add') await api.post('/products', form);
+    else await api.put(`/products/${form.id}`, form);
+    setModal(null); load();
+  };
+  const del = async id => { if(confirm('លុបផលិតផលនេះ?')) { await api.del(`/products/${id}`); load(); } };
+
+  return (
+    <div>
+      <div className="search-bar">
+        <input className="search-input" placeholder="🔍 ស្វែងរកផលិតផល..." value={search} onChange={e=>setSearch(e.target.value)} />
+        <button className="btn btn-primary" onClick={openAdd}>+ បន្ថែមផលិតផល</button>
+      </div>
+      <div className="card">
+        <div className="card-header"><span className="card-title">📦 តារាងស្តុក ({filtered.length} ប្រភេទ)</span></div>
+        <div className="table-wrap">
+          <table>
+            <thead><tr><th>SKU</th><th>ឈ្មោះ</th><th>ប្រភេទ</th><th>ឯកតា</th><th>ស្តុក</th><th>ស.សុវ</th><th>តម្លៃដើម</th><th>តម្លៃលក់</th><th>ហួស</th><th>ស្ថានភាព</th><th>សកម្មភាព</th></tr></thead>
+            <tbody>{filtered.map(p => (
+              <tr key={p.id}>
+                <td><code style={{fontSize:'11px',background:'var(--gray-100)',padding:'2px 6px',borderRadius:'4px'}}>{p.id}</code></td>
+                <td style={{maxWidth:'200px'}}>{p.name}</td>
+                <td><span className="tag tag-blue">{p.category}</span></td>
+                <td>{p.unit}</td>
+                <td><strong style={{color: p.stock <= p.minStock ? 'var(--red)' : 'var(--green-mid)'}}>{p.stock}</strong></td>
+                <td>{p.minStock}</td>
+                <td>{fmt$(p.costPrice)}</td>
+                <td>{fmt$(p.sellPrice)}</td>
+                <td style={{fontSize:'12px',color: p.expiry && new Date(p.expiry) < new Date(Date.now()+30*86400000) ? 'var(--red)' : 'inherit'}}>{p.expiry || '-'}</td>
+                <td>{stockStatus(p.stock, p.minStock)}</td>
+                <td><div style={{display:'flex',gap:'4px'}}>
+                  <button className="btn btn-ghost btn-sm" onClick={()=>openEdit(p)}>✏️</button>
+                  <button className="btn btn-danger btn-sm" onClick={()=>del(p.id)}>🗑️</button>
+                </div></td>
+              </tr>
+            ))}</tbody>
+          </table>
+        </div>
+      </div>
+      {modal && (
+        <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&setModal(null)}>
+          <div className="modal">
+            <div className="modal-title">{modal==='add'?'➕ បន្ថែមផលិតផល':'✏️ កែសម្រួលផលិតផល'}</div>
+            <div className="form-row">
+              <div className="form-group"><label>ឈ្មោះផលិតផល *</label><input value={form.name||''} onChange={e=>setForm({...form,name:e.target.value})} /></div>
+              <div className="form-group"><label>ប្រភេទ</label>
+                <select value={form.category||''} onChange={e=>setForm({...form,category:e.target.value})}>
+                  {['ថ្នាំសត្វល្អិត','ថ្នាំផ្សិត','ថ្នាំស្មៅ','ជីគីមី','គ្រាប់ពូជ','ឧបករណ៍','ផ្សេងៗ'].map(c=><option key={c}>{c}</option>)}
+                </select>
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group"><label>ឯកតា</label><input value={form.unit||''} onChange={e=>setForm({...form,unit:e.target.value})} /></div>
+              <div className="form-group"><label>ស្តុកដំបូង</label><input type="number" value={form.stock||0} onChange={e=>setForm({...form,stock:+e.target.value})} /></div>
+            </div>
+            <div className="form-row">
+              <div className="form-group"><label>ស្តុកអប្បបរមា</label><input type="number" value={form.minStock||0} onChange={e=>setForm({...form,minStock:+e.target.value})} /></div>
+              <div className="form-group"><label>ថ្ងៃហួសកំណត់</label><input type="date" value={form.expiry||''} onChange={e=>setForm({...form,expiry:e.target.value})} /></div>
+            </div>
+            <div className="form-row">
+              <div className="form-group"><label>តម្លៃដើម ($)</label><input type="number" step="0.01" value={form.costPrice||0} onChange={e=>setForm({...form,costPrice:+e.target.value})} /></div>
+              <div className="form-group"><label>តម្លៃលក់ ($)</label><input type="number" step="0.01" value={form.sellPrice||0} onChange={e=>setForm({...form,sellPrice:+e.target.value})} /></div>
+            </div>
+            <div className="modal-footer">
+              <button className="btn btn-ghost" onClick={()=>setModal(null)}>បោះបង់</button>
+              <button className="btn btn-primary" onClick={save}>💾 រក្សាទុក</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Sales ──
+function Sales({ products, customers }) {
+  const [sales, setSales] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [form, setForm] = useState({ customerId:'', items:[{productId:'',name:'',qty:1,unitPrice:0,costPrice:0}], discount:0, paid:0, paymentStatus:'សាច់ប្រាក់' });
+  const [search, setSearch] = useState('');
+
+  const load = () => api.get('/sales').then(setSales);
+  useEffect(() => { load(); }, []);
+
+  const filtered = sales.filter(s => s.customerName?.includes(search) || s.id?.includes(search));
+
+  const updateItem = (i, field, val) => {
+    const items = [...form.items];
+    items[i] = { ...items[i], [field]: val };
+    if (field === 'productId') {
+      const p = products.find(p => p.id === val);
+      if (p) { items[i].name = p.name; items[i].unitPrice = p.sellPrice; items[i].costPrice = p.costPrice; }
+    }
+    setForm({ ...form, items });
+  };
+  const addItem = () => setForm({ ...form, items: [...form.items, {productId:'',name:'',qty:1,unitPrice:0,costPrice:0}] });
+  const removeItem = i => setForm({ ...form, items: form.items.filter((_,idx)=>idx!==i) });
+
+  const subtotal = form.items.reduce((s,i) => s + (i.qty||0)*(i.unitPrice||0), 0);
+  const discAmt = subtotal * (form.discount||0) / 100;
+  const total = subtotal - discAmt;
+  const balance = total - (form.paid||0);
+
+  const submit = async () => {
+    const cust = customers.find(c => c.id === form.customerId);
+    await api.post('/sales', { ...form, customerName: cust?.name||'', subtotal, total, balance, paymentStatus: balance<=0?'សាច់ប្រាក់':'ជឿ' });
+    setModal(false); load();
+    setForm({ customerId:'', items:[{productId:'',name:'',qty:1,unitPrice:0,costPrice:0}], discount:0, paid:0, paymentStatus:'សាច់ប្រាក់' });
+  };
+
+  return (
+    <div>
+      <div className="search-bar">
+        <input className="search-input" placeholder="🔍 ស្វែងរកវិក្កយបត្រ..." value={search} onChange={e=>setSearch(e.target.value)} />
+        <button className="btn btn-primary" onClick={()=>setModal(true)}>+ វិក្កយបត្រថ្មី</button>
+      </div>
+      <div className="card">
+        <div className="card-header"><span className="card-title">🧾 វិក្កយបត្រលក់ ({filtered.length})</span></div>
+        <div className="table-wrap">
+          <table>
+            <thead><tr><th>លេខ</th><th>ថ្ងៃខែ</th><th>អតិថិជន</th><th>ទំនិញ</th><th>សរុប</th><th>បានបង់</th><th>សមតុល្យ</th><th>ស្ថានភាព</th></tr></thead>
+            <tbody>{filtered.map(s => (
+              <tr key={s.id}>
+                <td><code style={{fontSize:'11px',background:'var(--gray-100)',padding:'2px 6px',borderRadius:'4px'}}>{s.id}</code></td>
+                <td>{fmtDate(s.date)}</td>
+                <td>{s.customerName}</td>
+                <td style={{fontSize:'12px',color:'var(--gray-600)'}}>{s.items?.map(i=>i.name?.split(' ')[0]).join(', ')}</td>
+                <td><strong>{fmt$(s.total)}</strong></td>
+                <td>{fmt$(s.paid)}</td>
+                <td style={{color:s.balance>0?'var(--red)':'var(--green-mid)',fontWeight:'600'}}>{fmt$(s.balance)}</td>
+                <td>{payStatus(s.paymentStatus)}</td>
+              </tr>
+            ))}</tbody>
+          </table>
+        </div>
+      </div>
+      {modal && (
+        <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&setModal(false)}>
+          <div className="modal" style={{maxWidth:'640px'}}>
+            <div className="modal-title">🧾 វិក្កយបត្រលក់ថ្មី</div>
+            <div className="form-row">
+              <div className="form-group"><label>អតិថិជន *</label>
+                <select value={form.customerId} onChange={e=>setForm({...form,customerId:e.target.value})}>
+                  <option value="">-- ជ្រើសរើស --</option>
+                  {customers.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}
+                </select>
+              </div>
+              <div className="form-group"><label>ថ្ងៃខែ</label><input type="date" value={form.date||new Date().toISOString().split('T')[0]} onChange={e=>setForm({...form,date:e.target.value})} /></div>
+            </div>
+            <div style={{background:'var(--gray-50)',borderRadius:'8px',padding:'12px',marginBottom:'12px'}}>
+              <div style={{fontSize:'13px',fontWeight:'600',marginBottom:'8px',color:'var(--green-dark)'}}>ទំនិញ</div>
+              {form.items.map((item,i) => (
+                <div key={i} className="item-row">
+                  <select value={item.productId} onChange={e=>updateItem(i,'productId',e.target.value)}>
+                    <option value="">-- ជ្រើស --</option>
+                    {products.map(p=><option key={p.id} value={p.id}>{p.name} (ស្តុក:{p.stock})</option>)}
+                  </select>
+                  <input type="number" placeholder="ចំនួន" value={item.qty} onChange={e=>updateItem(i,'qty',+e.target.value)} />
+                  <input type="number" placeholder="តម្លៃ" value={item.unitPrice} onChange={e=>updateItem(i,'unitPrice',+e.target.value)} />
+                  <div style={{fontSize:'12px',color:'var(--green-mid)',fontWeight:'600',textAlign:'right'}}>{fmt$(item.qty*item.unitPrice)}</div>
+                  <button className="btn btn-danger btn-sm" onClick={()=>removeItem(i)}>✕</button>
+                </div>
+              ))}
+              <button className="btn btn-ghost btn-sm" onClick={addItem}>+ បន្ថែមទំនិញ</button>
+            </div>
+            <div style={{background:'var(--green-pale)',borderRadius:'8px',padding:'12px',marginBottom:'12px'}}>
+              <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'8px'}}>
+                <div className="form-group"><label>បញ្ចុះតម្លៃ (%)</label><input type="number" value={form.discount} onChange={e=>setForm({...form,discount:+e.target.value})} /></div>
+                <div className="form-group"><label>ប្រាក់ទទួល ($)</label><input type="number" step="0.01" value={form.paid} onChange={e=>setForm({...form,paid:+e.target.value})} /></div>
+              </div>
+              <div style={{marginTop:'8px',fontSize:'14px',display:'flex',flexDirection:'column',gap:'4px'}}>
+                <div style={{display:'flex',justifyContent:'space-between'}}><span>សរុបរង:</span><strong>{fmt$(subtotal)}</strong></div>
+                <div style={{display:'flex',justifyContent:'space-between'}}><span>បញ្ចុះ {form.discount}%:</span><span>-{fmt$(discAmt)}</span></div>
+                <div style={{display:'flex',justifyContent:'space-between',fontSize:'16px',fontWeight:'700',color:'var(--green-dark)',borderTop:'1px solid var(--green-light)',paddingTop:'4px',marginTop:'4px'}}><span>សរុបសរុប:</span><span>{fmt$(total)}</span></div>
+                <div style={{display:'flex',justifyContent:'space-between',color:balance>0?'var(--red)':'var(--green-mid)',fontWeight:'600'}}><span>សមតុល្យ:</span><span>{fmt$(balance)}</span></div>
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button className="btn btn-ghost" onClick={()=>setModal(false)}>បោះបង់</button>
+              <button className="btn btn-primary" onClick={submit}>💾 រក្សាទុក</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Purchases ──
+function Purchases({ products, suppliers }) {
+  const [purchases, setPurchases] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [form, setForm] = useState({ supplierId:'', items:[{productId:'',name:'',qty:1,unitPrice:0}], paymentStatus:'បានបង់ប្រាក់' });
+
+  const load = () => api.get('/purchases').then(setPurchases);
+  useEffect(() => { load(); }, []);
+
+  const updateItem = (i, field, val) => {
+    const items = [...form.items];
+    items[i] = { ...items[i], [field]: val };
+    if (field === 'productId') {
+      const p = products.find(p => p.id === val);
+      if (p) { items[i].name = p.name; items[i].unitPrice = p.costPrice; }
+    }
+    setForm({ ...form, items });
+  };
+  const addItem = () => setForm({ ...form, items: [...form.items, {productId:'',name:'',qty:1,unitPrice:0}] });
+  const removeItem = i => setForm({ ...form, items: form.items.filter((_,idx)=>idx!==i) });
+  const total = form.items.reduce((s,i) => s + (i.qty||0)*(i.unitPrice||0), 0);
+
+  const submit = async () => {
+    const sup = suppliers.find(s => s.id === form.supplierId);
+    await api.post('/purchases', { ...form, supplierName: sup?.name||'', total });
+    setModal(false); load();
+    setForm({ supplierId:'', items:[{productId:'',name:'',qty:1,unitPrice:0}], paymentStatus:'បានបង់ប្រាក់' });
+  };
+
+  return (
+    <div>
+      <div className="search-bar">
+        <button className="btn btn-primary" onClick={()=>setModal(true)}>+ ការទិញថ្មី</button>
+      </div>
+      <div className="card">
+        <div className="card-header"><span className="card-title">🛒 តារាងការទិញ ({purchases.length})</span></div>
+        <div className="table-wrap">
+          <table>
+            <thead><tr><th>PO</th><th>ថ្ងៃខែ</th><th>អ្នកផ្គត់ផ្គង់</th><th>ទំនិញ</th><th>សរុប</th><th>ស្ថានភាព</th></tr></thead>
+            <tbody>{purchases.map(p => (
+              <tr key={p.id}>
+                <td><code style={{fontSize:'11px',background:'var(--gray-100)',padding:'2px 6px',borderRadius:'4px'}}>{p.id}</code></td>
+                <td>{fmtDate(p.date)}</td>
+                <td>{p.supplierName}</td>
+                <td style={{fontSize:'12px',color:'var(--gray-600)'}}>{p.items?.map(i=>i.name?.split(' ')[0]).join(', ')}</td>
+                <td><strong>{fmt$(p.total)}</strong></td>
+                <td>{payStatus(p.paymentStatus)}</td>
+              </tr>
+            ))}</tbody>
+          </table>
+        </div>
+      </div>
+      {modal && (
+        <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&setModal(false)}>
+          <div className="modal" style={{maxWidth:'600px'}}>
+            <div className="modal-title">🛒 ការទិញចូលថ្មី</div>
+            <div className="form-row">
+              <div className="form-group"><label>អ្នកផ្គត់ផ្គង់ *</label>
+                <select value={form.supplierId} onChange={e=>setForm({...form,supplierId:e.target.value})}>
+                  <option value="">-- ជ្រើសរើស --</option>
+                  {suppliers.map(s=><option key={s.id} value={s.id}>{s.name}</option>)}
+                </select>
+              </div>
+              <div className="form-group"><label>ស្ថានភាពទូទាត់</label>
+                <select value={form.paymentStatus} onChange={e=>setForm({...form,paymentStatus:e.target.value})}>
+                  <option>បានបង់ប្រាក់</option><option>ជំពាក់គេ</option><option>ជំពាក់គេពាក់កណ្តាល</option>
+                </select>
+              </div>
+            </div>
+            <div style={{background:'var(--gray-50)',borderRadius:'8px',padding:'12px',marginBottom:'12px'}}>
+              <div style={{fontSize:'13px',fontWeight:'600',marginBottom:'8px'}}>ទំនិញ</div>
+              {form.items.map((item,i) => (
+                <div key={i} className="item-row">
+                  <select value={item.productId} onChange={e=>updateItem(i,'productId',e.target.value)}>
+                    <option value="">-- ជ្រើស --</option>
+                    {products.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}
+                  </select>
+                  <input type="number" placeholder="ចំនួន" value={item.qty} onChange={e=>updateItem(i,'qty',+e.target.value)} />
+                  <input type="number" placeholder="តម្លៃ" step="0.01" value={item.unitPrice} onChange={e=>updateItem(i,'unitPrice',+e.target.value)} />
+                  <div style={{fontSize:'12px',fontWeight:'600',textAlign:'right'}}>{fmt$(item.qty*item.unitPrice)}</div>
+                  <button className="btn btn-danger btn-sm" onClick={()=>removeItem(i)}>✕</button>
+                </div>
+              ))}
+              <button className="btn btn-ghost btn-sm" onClick={addItem}>+ បន្ថែម</button>
+            </div>
+            <div style={{textAlign:'right',fontSize:'16px',fontWeight:'700',color:'var(--green-dark)',marginBottom:'12px'}}>សរុប: {fmt$(total)}</div>
+            <div className="modal-footer">
+              <button className="btn btn-ghost" onClick={()=>setModal(false)}>បោះបង់</button>
+              <button className="btn btn-primary" onClick={submit}>💾 រក្សាទុក</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Customers ──
+function Customers() {
+  const [customers, setCustomers] = useState([]);
+  const [modal, setModal] = useState(null);
+  const [form, setForm] = useState({});
+
+  const load = () => api.get('/customers').then(setCustomers);
+  useEffect(() => { load(); }, []);
+
+  const level = totalBuy => totalBuy >= 200 ? '⭐⭐⭐ VIP' : totalBuy >= 100 ? '⭐⭐ ធម្មតា' : '⭐ ថ្មី';
+
+  const save = async () => {
+    if (modal === 'add') await api.post('/customers', form);
+    else await api.put(`/customers/${form.id}`, form);
+    setModal(null); load();
+  };
+
+  return (
+    <div>
+      <div className="search-bar">
+        <button className="btn btn-primary" onClick={()=>{setForm({});setModal('add');}}>+ អតិថិជនថ្មី</button>
+      </div>
+      <div className="card">
+        <div className="card-header"><span className="card-title">👥 បញ្ជីអតិថិជន ({customers.length} នាក់)</span></div>
+        <div className="table-wrap">
+          <table>
+            <thead><tr><th>លេខ</th><th>ឈ្មោះ</th><th>ទូរស័ព្ទ</th><th>ភូមិ</th><th>ដំណាំ</th><th>ទិញសរុប</th><th>បំណុល</th><th>កម្រិត</th><th></th></tr></thead>
+            <tbody>{customers.map(c => (
+              <tr key={c.id}>
+                <td><code style={{fontSize:'11px',background:'var(--gray-100)',padding:'2px 6px',borderRadius:'4px'}}>{c.id}</code></td>
+                <td><strong>{c.name}</strong></td>
+                <td>{c.phone}</td>
+                <td style={{fontSize:'12px'}}>{c.village}</td>
+                <td><span className="tag tag-green">{c.cropType}</span></td>
+                <td>{fmt$(c.totalBuy)}</td>
+                <td style={{color:c.debt>0?'var(--red)':'inherit',fontWeight:c.debt>0?'600':'400'}}>{fmt$(c.debt)}</td>
+                <td style={{fontSize:'12px'}}>{level(c.totalBuy)}</td>
+                <td><button className="btn btn-ghost btn-sm" onClick={()=>{setForm({...c});setModal('edit');}}>✏️</button></td>
+              </tr>
+            ))}</tbody>
+          </table>
+        </div>
+      </div>
+      {modal && (
+        <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&setModal(null)}>
+          <div className="modal">
+            <div className="modal-title">{modal==='add'?'➕ អតិថិជនថ្មី':'✏️ កែអតិថិជន'}</div>
+            <div className="form-row">
+              <div className="form-group"><label>ឈ្មោះ *</label><input value={form.name||''} onChange={e=>setForm({...form,name:e.target.value})} /></div>
+              <div className="form-group"><label>ទូរស័ព្ទ</label><input value={form.phone||''} onChange={e=>setForm({...form,phone:e.target.value})} /></div>
+            </div>
+            <div className="form-row">
+              <div className="form-group"><label>ភូមិ/ឃុំ</label><input value={form.village||''} onChange={e=>setForm({...form,village:e.target.value})} /></div>
+              <div className="form-group"><label>ប្រភេទដំណាំ</label><input value={form.cropType||''} onChange={e=>setForm({...form,cropType:e.target.value})} /></div>
+            </div>
+            <div className="modal-footer">
+              <button className="btn btn-ghost" onClick={()=>setModal(null)}>បោះបង់</button>
+              <button className="btn btn-primary" onClick={save}>💾 រក្សាទុក</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Suppliers ──
+function Suppliers() {
+  const [suppliers, setSuppliers] = useState([]);
+  const [modal, setModal] = useState(null);
+  const [form, setForm] = useState({});
+
+  const load = () => api.get('/suppliers').then(setSuppliers);
+  useEffect(() => { load(); }, []);
+
+  const save = async () => {
+    if (modal === 'add') await api.post('/suppliers', form);
+    else await api.put(`/suppliers/${form.id}`, form);
+    setModal(null); load();
+  };
+
+  return (
+    <div>
+      <div className="search-bar">
+        <button className="btn btn-primary" onClick={()=>{setForm({});setModal('add');}}>+ អ្នកផ្គត់ផ្គង់ថ្មី</button>
+      </div>
+      <div className="card">
+        <div className="card-header"><span className="card-title">🏭 បញ្ជីអ្នកផ្គត់ផ្គង់ ({suppliers.length})</span></div>
+        <div className="table-wrap">
+          <table>
+            <thead><tr><th>លេខ</th><th>ឈ្មោះ</th><th>អ្នកទាក់ទង</th><th>ទូរស័ព្ទ</th><th>ផ្គត់ផ្គង់</th><th>ទិញសរុប</th><th>បំណុល</th></tr></thead>
+            <tbody>{suppliers.map(s => (
+              <tr key={s.id}>
+                <td><code style={{fontSize:'11px',background:'var(--gray-100)',padding:'2px 6px',borderRadius:'4px'}}>{s.id}</code></td>
+                <td><strong>{s.name}</strong></td>
+                <td>{s.contact}</td>
+                <td>{s.phone}</td>
+                <td><span className="tag tag-blue">{s.productType}</span></td>
+                <td>{fmt$(s.totalBuy)}</td>
+                <td style={{color:s.debt>0?'var(--red)':'inherit',fontWeight:s.debt>0?'600':'400'}}>{fmt$(s.debt)}</td>
+              </tr>
+            ))}</tbody>
+          </table>
+        </div>
+      </div>
+      {modal && (
+        <div className="modal-overlay" onClick={e=>e.target===e.currentTarget&&setModal(null)}>
+          <div className="modal">
+            <div className="modal-title">{modal==='add'?'➕ អ្នកផ្គត់ផ្គង់ថ្មី':'✏️ កែ'}</div>
+            <div className="form-row">
+              <div className="form-group"><label>ឈ្មោះ *</label><input value={form.name||''} onChange={e=>setForm({...form,name:e.target.value})} /></div>
+              <div className="form-group"><label>អ្នកទាក់ទង</label><input value={form.contact||''} onChange={e=>setForm({...form,contact:e.target.value})} /></div>
+            </div>
+            <div className="form-row">
+              <div className="form-group"><label>ទូរស័ព្ទ</label><input value={form.phone||''} onChange={e=>setForm({...form,phone:e.target.value})} /></div>
+              <div className="form-group"><label>ប្រភេទផលិតផល</label><input value={form.productType||''} onChange={e=>setForm({...form,productType:e.target.value})} /></div>
+            </div>
+            <div className="form-group"><label>អាសយដ្ឋាន</label><input value={form.address||''} onChange={e=>setForm({...form,address:e.target.value})} /></div>
+            <div className="modal-footer">
+              <button className="btn btn-ghost" onClick={()=>setModal(null)}>បោះបង់</button>
+              <button className="btn btn-primary" onClick={save}>💾 រក្សាទុក</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Reports ──
+function Reports() {
+  const [sales, setSales] = useState([]);
+  const [purchases, setPurchases] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [customers, setCustomers] = useState([]);
+
+  useEffect(() => {
+    api.get('/sales').then(setSales);
+    api.get('/purchases').then(setPurchases);
+    api.get('/products').then(setProducts);
+    api.get('/customers').then(setCustomers);
+  }, []);
+
+  const totalRevenue = sales.reduce((s, sale) => s + (sale.total||0), 0);
+  const totalProfit = sales.reduce((s, sale) => s + sale.items?.reduce((sp, item) => sp + (item.unitPrice - item.costPrice) * item.qty, 0), 0);
+  const totalPaid = sales.reduce((s, sale) => s + (sale.paid||0), 0);
+  const totalDebt = sales.reduce((s, sale) => s + (sale.balance||0), 0);
+  const totalPurchase = purchases.reduce((s, p) => s + (p.total||0), 0);
+
+  const topCustomers = [...customers].sort((a,b) => b.totalBuy - a.totalBuy).slice(0,5);
+  const lowStock = products.filter(p => p.stock <= p.minStock);
+
+  return (
+    <div>
+      <div className="stat-grid">
+        <div className="stat-card"><div className="label">💰 ចំណូលលក់</div><div className="value">{fmt$(totalRevenue)}</div></div>
+        <div className="stat-card"><div className="label">📈 ចំណេញ</div><div className="value" style={{color:'var(--green-mid)'}}>{fmt$(totalProfit)}</div><div className="sub">Margin: {totalRevenue>0?((totalProfit/totalRevenue)*100).toFixed(1):0}%</div></div>
+        <div className="stat-card"><div className="label">✅ ប្រាក់ទទួល</div><div className="value">{fmt$(totalPaid)}</div></div>
+        <div className="stat-card red"><div className="label">⚠️ បំណុលអតិថិជន</div><div className="value">{fmt$(totalDebt)}</div></div>
+        <div className="stat-card gold"><div className="label">🛒 ការទិញសរុប</div><div className="value">{fmt$(totalPurchase)}</div></div>
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'16px'}}>
+        <div className="card">
+          <div className="card-header"><span className="card-title">🏆 អតិថិជនជ្រើលើ</span></div>
+          <div className="table-wrap">
+            <table>
+              <thead><tr><th>ឈ្មោះ</th><th>ទិញសរុប</th><th>បំណុល</th></tr></thead>
+              <tbody>{topCustomers.map(c => (
+                <tr key={c.id}><td>{c.name}</td><td>{fmt$(c.totalBuy)}</td><td style={{color:c.debt>0?'var(--red)':'inherit'}}>{fmt$(c.debt)}</td></tr>
+              ))}</tbody>
+            </table>
+          </div>
+        </div>
+        <div className="card">
+          <div className="card-header"><span className="card-title">⚠️ ស្តុកជិតអស់</span></div>
+          <div className="table-wrap">
+            <table>
+              <thead><tr><th>ផលិតផល</th><th>ស្តុក</th><th>អប្ប</th></tr></thead>
+              <tbody>{lowStock.length === 0 ? <tr><td colSpan="3" style={{textAlign:'center',color:'var(--gray-400)'}}>✅ គ្រប់គ្រាន់ទាំងអស់</td></tr> : lowStock.map(p => (
+                <tr key={p.id}><td>{p.name}</td><td style={{color:'var(--red)',fontWeight:'600'}}>{p.stock}</td><td>{p.minStock}</td></tr>
+              ))}</tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Main App ──
+const PAGES = [
+  { id:'dashboard', label:'ផ្ទាំងគ្រប់គ្រង', icon:'📊' },
+  { id:'inventory', label:'គ្រប់គ្រងស្តុក', icon:'📦' },
+  { id:'sales', label:'វិក្កយបត្រ/លក់', icon:'🧾' },
+  { id:'purchases', label:'ការទិញចូល', icon:'🛒' },
+  { id:'customers', label:'អតិថិជន & បំណុល', icon:'👥' },
+  { id:'suppliers', label:'អ្នកផ្គត់ផ្គង់', icon:'🏭' },
+  { id:'reports', label:'របាយការណ៍', icon:'📈' },
+];
+
+const PAGE_TITLES = {
+  dashboard:'ផ្ទាំងគ្រប់គ្រង',
+  inventory:'គ្រប់គ្រងស្តុក',
+  sales:'វិក្កយបត្រ',
+  purchases:'ការទិញចូលស្តុក',
+  customers:'អតិថិជន & បំណុល',
+  suppliers:'អ្នកផ្គត់ផ្គង់',
+  reports:'របាយការណ៍',
+};
+
+function App() {
+  const [page, setPage] = useState('dashboard');
+  const [products, setProducts] = useState([]);
+  const [customers, setCustomers] = useState([]);
+  const [suppliers, setSuppliers] = useState([]);
+
+  useEffect(() => {
+    api.get('/products').then(setProducts);
+    api.get('/customers').then(setCustomers);
+    api.get('/suppliers').then(setSuppliers);
+  }, [page]);
+
+  const renderPage = () => {
+    switch(page) {
+      case 'dashboard': return <Dashboard />;
+      case 'inventory': return <Inventory />;
+      case 'sales': return <Sales products={products} customers={customers} />;
+      case 'purchases': return <Purchases products={products} suppliers={suppliers} />;
+      case 'customers': return <Customers />;
+      case 'suppliers': return <Suppliers />;
+      case 'reports': return <Reports />;
+      default: return <Dashboard />;
+    }
+  };
+
+  return (
+    <div className="app">
+      <div className="sidebar">
+        <div className="sidebar-header">
+          <div className="sidebar-logo">🌾 ហាងថ្នាំ<span>Agricultural Shop System</span></div>
+        </div>
+        <nav className="sidebar-nav">
+          {PAGES.map(p => (
+            <div key={p.id} className={`nav-item${page===p.id?' active':''}`} onClick={()=>setPage(p.id)}>
+              <span className="nav-icon">{p.icon}</span>
+              <span>{p.label}</span>
+            </div>
+          ))}
+        </nav>
+        <div className="sidebar-footer">v1.0 © 2026</div>
+      </div>
+      <div className="main">
+        <div className="topbar">
+          <div className="page-title">{PAGE_TITLES[page]}</div>
+          <div className="topbar-right">
+            <span style={{fontSize:'13px',color:'var(--gray-600)'}}>🌾 ហាងថ្នាំកសិកម្ម</span>
+          </div>
+        </div>
+        <div className="content">{renderPage()}</div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
